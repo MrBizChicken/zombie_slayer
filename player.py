@@ -5,8 +5,8 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
-        self.width = 64
-        self.height = 64
+        self.width = 32
+        self.height = 32
         self.x = 0
         self.y = 0
         self.speed = 5
@@ -15,8 +15,16 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
 
-    def update(self):
+    def update(self, zombie_group):
         self.key_input()
+        if pygame.sprite.spritecollide(self, zombie_group, False):
+            self.image.fill((236, 0, 0))
+
+
+        else:
+            self.image.fill((255, 255 ,255))    
+
+
 
 
 
