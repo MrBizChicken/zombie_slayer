@@ -15,13 +15,8 @@ class Zombie(pygame.sprite.Sprite):
         self.image.fill((0, 109 ,0))
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
+        self.player = player.Player()
 
     def update(self):
-        self.move()
-
-
-
-
-    def move(self):
-        self.rect = self.rect.move(player.Player().x, 0)
-        self.rect = self.rect.move(0, player.Player().y)
+        if self.player.x > self.x:
+            self.rect.x += -self.speed

@@ -1,6 +1,7 @@
 from constants import *
 import pygame
 import random
+import wood
 class Hot_bar(pygame.sprite.Sprite):
     def __init__(self, x, y ,width, height):
         super().__init__()
@@ -21,4 +22,8 @@ class Hot_bar(pygame.sprite.Sprite):
             self.image.fill((220, 220 ,220))
 
         else:
-            self.image.fill((128, 128 ,128))    
+            self.image.fill((128, 128 ,128))
+
+
+        if pygame.mouse.get_pressed()[0] and wood.Wood().rect.collidepoint(pygame.mouse.get_pos()):
+            self.image.fill((139, 69, 19))

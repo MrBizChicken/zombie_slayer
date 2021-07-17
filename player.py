@@ -1,6 +1,9 @@
 from constants import *
 import pygame
 import random
+import wood
+import zombie
+import math
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -14,17 +17,27 @@ class Player(pygame.sprite.Sprite):
         self.image.fill((255, 255 ,255))
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
+        self.xmouse, self.ymouse = pygame.mouse.get_pos()
+        self.angle = math.atan2(self.ymouse-self.y, self.xmouse-self.x)
 
-    def update(self, zombie_group):
+
+    def update(self, main_block_group, zombie_group):
         self.key_input()
+
         if pygame.sprite.spritecollide(self, zombie_group, False):
             self.image.fill((236, 0, 0))
 
 
         else:
-            self.image.fill((255, 255 ,255))    
+            self.image.fill((255, 255 ,255))
 
 
+        if pygame.sprite.spritecollide(self, main_block_group, False):
+            self.speed = 0
+
+
+        else:
+            self.speed = 5
 
 
 
@@ -34,21 +47,15 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
         if keys[pygame.K_LEFT]:
-
-            if self.rect.x > 0:
-                self.rect.x += -self.speed
+            self.rect.x += -self.speed
 
         if keys[pygame.K_RIGHT]:
-            if self.rect.left < GAME_WIDTH:
-                self.rect.x += self.speed
+            self.rect.x += self.speed
 
 
 
         if keys[pygame.K_UP]:
-
-            if self.rect.y > 0:
-                self.rect.y += -self.speed
+            self.rect.y += -self.speed
 
         if keys[pygame.K_DOWN]:
-            if self.rect.top < GAME_HEIGHT:
-                self.rect.y += self.speed
+            self.rect.y += self.speed

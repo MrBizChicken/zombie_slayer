@@ -4,7 +4,8 @@ import player
 import hot_bar
 import zombie
 import wood
-
+import main_block
+import door
 from pygame import mixer
 mixer.init()
 
@@ -18,6 +19,8 @@ player_group = pygame.sprite.Group()
 hot_bar_group = pygame.sprite.Group()
 zombie_group = pygame.sprite.Group()
 wood_group = pygame.sprite.Group()
+main_block_group = pygame.sprite.Group()
+door_group = pygame.sprite.Group()
 
 
 
@@ -27,7 +30,10 @@ player = player.Player()
 player_group.add(player)
 zombie = zombie.Zombie()
 zombie_group.add(zombie)
-
+main_block = main_block.Main_block()
+main_block_group.add(main_block)
+door = door.Door()
+door_group.add(door)
 
 
 
@@ -83,13 +89,16 @@ def draw():
     hot_bar_group.draw(surface)
     zombie_group.draw(surface)
     wood_group.draw(surface)
+    door_group.draw(surface)
 
 
 def update():
-    player_group.update(zombie_group)
+    player_group.update(zombie_group, main_block_group)
     hot_bar_group.update()
     zombie_group.update()
     wood_group.update()
+    main_block_group.update()
+    door_group.update()
 
 
 
