@@ -72,16 +72,16 @@ class Player(pg.sprite.Sprite):
     def __init__(self, pos):
 
         super().__init__()
-        self.image = pg.Surface((50, 30), pg.SRCALPHA)
-        pg.draw.polygon(self.image, pg.Color('salmon4'),
-                        [(0, 0), (50, 15), (0, 30)])
+        self.image = pg.image.load("player.png")
         self.orig_image = self.image  # Store a reference to the original.
         self.rect = self.image.get_rect(center=pos)
+        self.speed = 5
         self.pos = Vector2(pos)
         pprint(pg.color.THECOLORS)
 
     def update(self):
         self.rotate()
+        self.key_input()
 
 
     def rotate(self):
@@ -94,3 +94,21 @@ class Player(pg.sprite.Sprite):
         self.image = pg.transform.rotate(self.orig_image, -angle)
         # Create a new rect with the center of the old rect.
         self.rect = self.image.get_rect(center=self.rect.center)
+
+    def key_input(self):
+
+        keys = pg.key.get_pressed()
+
+        if keys[pg.K_LEFT]:
+            self.rect.x += -self.speed
+
+        if keys[pg.K_RIGHT]:
+            self.rect.x += self.speed
+
+
+
+        if keys[pg.K_UP]:
+            self.rect.y += -self.speed
+
+        if keys[pg.K_DOWN]:
+            self.rect.y += self.speed
