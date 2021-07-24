@@ -11,7 +11,6 @@ class Main_block(pygame.sprite.Sprite):
         self.y = random.randint(0, GAME_HEIGHT)
         self.speed = 2
         self.image = pygame.Surface((self.width, self.height))
-        self.image.fill((0, 200, 0))
         self.rect = pygame.Rect(self.image.get_rect())
         self.rect.topleft = (self.x, self.y)
 
